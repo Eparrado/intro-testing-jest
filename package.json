@@ -1,0 +1,24 @@
+{
+  "name": "intro-testing",
+  "version": "1.0.0",
+  "description": "intro to testing js",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "jest --watch npm jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "intro-testing"
+  },
+  "keywords": [
+    "js",
+    "testing",
+    "jest"
+  ],
+  "author": "Estela Parrado",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
+}
