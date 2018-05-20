@@ -560,6 +560,7 @@ describe('arrow functions have lexical `this`, no dynamic `this`', () => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 //Block scope let
 describe('`let` restricts the scope of the variable to the current block', () => {
 
@@ -639,6 +640,57 @@ describe('`const` is like `let` plus read-only', () => {
       assert.equal(obj.x, 3);
     });
 
+  });
+
+});
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//Default parameters
+describe('default parameters make function parameters more flexible', () => {
+
+  it('define it using an assignment to the parameter `function(param=1){}`', function () {
+    let number = (int = 0) => int;
+
+    assert.equal(number(), 0);
+  });
+
+  it('it is used when undefined is passed', function () {
+    let number = (int = 23) => int;
+    const param = undefined;
+
+    assert.equal(number(param), 23);
+  });
+
+  it('it is not used when a value is given', function () {
+    function xhr(method = 'turuuru') {
+      return method;
+    }
+
+    assert.equal(xhr('POST'), 'POST');
+  });
+
+  it('it is evaluated at run time', function () {
+    let defaultValue;
+    defaultValue = 42;
+    function xhr(method = `value: ${defaultValue}`) {
+      return method;
+    }
+
+    assert.equal(xhr(), 'value: 42');
+  });
+
+  it('it can also be a function', function () {
+    let defaultValue = () => { };
+    function fn(value = defaultValue()) {
+      return value;
+    }
+
+    assert.equal(fn(), defaultValue());
   });
 
 });
