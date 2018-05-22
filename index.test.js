@@ -1106,3 +1106,143 @@ describe('spread with strings', () => {
   });
 
 });
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+//Number isInteger
+describe('`Number.isInteger()` determines if a value is an integer', function () {
+
+  const isTrue = (what) => assert.equal(what, true);
+  const isFalse = (what) => assert.equal(what, false);
+
+  it('`isInteger` is a static function on `Number`', function () {
+    const whatType = 'function';
+    assert.equal(typeof Number.isInteger, whatType);
+  });
+
+  describe('zero in different ways', function () {
+    it('0 is an integer', function () {
+      const zero = 0;
+      isTrue(Number.isInteger(zero));
+    });
+    it('0.000', function () {
+      isTrue(Number.isInteger(0.000));
+    });
+    it('the string "0" is NOT an integer', function () {
+      const stringZero = '0';
+      isFalse(Number.isInteger(stringZero));
+    });
+  });
+
+  describe('one in different ways', function () {
+    it('0.111 + 0.889', function () {
+      const rest = 0.889;
+      isTrue(Number.isInteger(0.111 + rest));
+    });
+    it('0.5 + 0.2 + 0.2 + 0.1 = 1 ... isn`t it?', function () {
+      const oneOrNot = 0.5 + 0.2 + 0.2 + 0.1;
+      isFalse(Number.isInteger(oneOrNot));
+    });
+    it('parseInt`ed "1" is an integer', function () {
+      const convertedToInt = parseInt('1.01');
+      isTrue(Number.isInteger(convertedToInt));
+    });
+  });
+
+  describe('what is not an integer', function () {
+    it('`Number()` is an integer', function () {
+      const numberOne = Number();
+      isTrue(Number.isInteger(numberOne));
+    });
+    it('`{}` is NOT an integer', function () {
+      const isit = Number.isInteger({});
+      isFalse(isit);
+    });
+    it('`0.1` is not an integer', function () {
+      const isit = Number.isInteger(0.1);
+      isFalse(isit);
+    });
+    it('`Number.Infinity` is not an integer', function () {
+      const isit = Number.isInteger(Number.Infinity);
+      isFalse(isit);
+    });
+    it('`NaN` is not an integer', function () {
+      const isit = Number.isInteger(NaN);
+      isFalse(isit);
+    });
+  });
+
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
+//Object.is()
+describe('`Object.is()` determines whether two values are the same', function () {
+
+  describe('scalar values', function () {
+    it('1 is the same as 1', function () {
+      const areSame = Object.is(1, 1);
+      assert.equal(areSame, true);
+    });
+    it('int 1 is different to string "1"', function () {
+      const areSame = Object.is(1, '1');
+      assert.equal(areSame, false);
+    });
+    it('strings just have to match', function () {
+      const areSame = Object.is('one', 'one');
+      assert.equal(areSame, true);
+    });
+    it('+0 is not the same as -0', function () {
+      const areSame = false;
+      assert.equal(Object.is(+0, -0), areSame);
+    });
+    it('NaN is the same as NaN', function () {
+      const number = NaN;
+      assert.equal(Object.is(NaN, number), true);
+    });
+  });
+
+  describe('coercion, as in `==` and `===`, does NOT apply', function () {
+    it('+0 != -0', function () {
+      const coerced = +0 !== -0;
+      const isSame = Object.is(+0, -0);
+      assert.equal(isSame, coerced);
+    });
+    it('empty string and `false` are not the same', function () {
+      const emptyString = '';
+      const isSame = Object.is(emptyString, false);
+      assert.equal(isSame, emptyString === false);
+    });
+    it('NaN', function () {
+      const coerced = NaN !== NaN;
+      const isSame = Object.is(NaN, NaN);
+      assert.equal(isSame, coerced);
+    });
+    it('NaN 0/0', function () {
+      const isSame = Object.is(NaN, 0 / 0);
+      assert.equal(isSame, true);
+    });
+  });
+
+  describe('complex values', function () {
+    it('`{}` is just not the same as `{}`', function () {
+      const areSame = false;
+      assert.equal(Object.is({}, {}), areSame);
+    });
+    it('Map', function () {
+      let map1 = new Map([[1, 'one']]);
+      let map2 = new Map([[1, 'one']]);
+      const areSame = Object.is(map1, map2);
+      assert.equal(areSame, false);
+    });
+  });
+
+});
