@@ -1218,8 +1218,8 @@ describe('`Object.is()` determines whether two values are the same', function ()
     });
     it('empty string and `false` are not the same', function () {
       const emptyString = '';
-      const isSame = Object.is(emptyString, false);
-      assert.equal(isSame, emptyString === false);
+      const isSame = !Object.is(emptyString, false);
+      assert.equal(isSame, emptyString == false);
     });
     it('NaN', function () {
       const coerced = NaN !== NaN;
