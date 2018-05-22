@@ -989,10 +989,10 @@ describe('rest in function params', () => {
   });
 
   it('makes `arguments` obsolete', () => {
-    const fn = (...args) => {
+    const fn = (args, ...rest) => {
       assert.deepEqual([42, 'twenty three', 'win'], args);
     };
-    fn(42, 'twenty three', 'win');
+    fn([42, 'twenty three', 'win']);
   });
 
   it('eliminate `arguments`!!!', () => {
