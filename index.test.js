@@ -1354,3 +1354,83 @@ describe('destructuring objects', () => {
 });
 
 //Destructuring defaults
+describe('destructuring can also have default values', () => {
+
+  it('for an empty array', () => {
+    const [a = 1] = [];
+    assert.equal(a, 1);
+  });
+
+  it('for a missing value', () => {
+    const [, b = 2] = [1, , 3];
+    assert.equal(b, 2);
+  });
+
+  it('in an object', () => {
+    const { a, b = 2 } = { a: 1 };
+    assert.equal(b, 2);
+  });
+
+  it('if the value is undefined', () => {
+    const { a, b = 2 } = { a: 1, b: void 0 };
+    assert.strictEqual(b, 2);
+  });
+
+  it('also a string works with defaults', () => {
+    const [a, b = 2] = '1';
+    assert.equal(a, '1');
+    assert.equal(b, 2);
+  });
+
+});
+
+//Destructuring parameters
+describe('destructuring function parameters', () => {
+
+  describe('destruct parameters', () => {
+    it('multiple params from object', () => {
+      const fn = ({ name, id }) => {
+        assert.equal(id, 42);
+        assert.equal(name, 'Wolfram');
+      };
+      const user = { name: 'Wolfram', id: 42 };
+      fn(user);
+    });
+
+    it('multiple params from array/object', () => {
+      const fn = ([{ name }]) => {
+        assert.equal(name, 'Alice');
+      };
+      const users = [{ name: 'Alice', id: 42 }, { name: 'nobody' }];
+      fn(users);
+    });
+  });
+
+  describe('default values', () => {
+    it('for simple values', () => {
+      const fn = (id, name = 'Bob') => {
+        assert.strictEqual(id, 23);
+        assert.strictEqual(name, 'Bob');
+      };
+      fn(23);
+    });
+
+    it('for a missing array value', () => {
+      const defaultUser = { id: 23, name: 'Joe' };
+      const fn = ([user]) => {
+        assert.deepEqual(user, defaultUser);
+      };
+      fn([defaultUser]);
+    });
+
+    it('mix of parameter types', () => {
+      const fn = (id = 1, [arr = 2], { obj = 3 }) => {
+        assert.equal(id, 1);
+        assert.equal(arr, 2);
+        assert.equal(obj, 3);
+      };
+      fn(void 0, [], {});
+    });
+  });
+
+});
