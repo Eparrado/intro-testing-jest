@@ -1352,3 +1352,5 @@ describe('destructuring objects', () => {
   });
 
 });
+
+//Destructuring defaults
