@@ -1,27 +1,24 @@
 {
-  "name": "intro-testing",
+  "name": "boilerplate-testing-es6-mocha",
   "version": "1.0.0",
-  "description": "intro to testing js",
-  "main": "index.js",
+  "description": "A boilerplate for testing JavaScript code using ES6 and Mocha",
   "scripts": {
-    "test": "jest",
-    "start": "jest --watch npm jest"
+    "test": "mocha --require babel-register",
+    "test:watch": "mocha --require babel-register --watch"
   },
   "repository": {
     "type": "git",
-    "url": "intro-testing"
+    "url": "git+https://github.com/adalab/boilerplate-testing-es6-mocha.git"
   },
-  "keywords": [
-    "js",
-    "testing",
-    "jest"
-  ],
-  "author": "Estela Parrado",
+  "author": "Asociación Adalab",
   "license": "ISC",
-  "devDependencies": {
-    "jest": "^22.4.3"
+  "bugs": {
+    "url": "https://github.com/adalab/boilerplate-testing-es6-mocha/issues"
   },
-  "dependencies": {
-    "jshint": "^2.9.5"
+  "homepage": "https://github.com/adalab/boilerplate-testing-es6-mocha#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "mocha": "^5.2.0"
   }
 }
